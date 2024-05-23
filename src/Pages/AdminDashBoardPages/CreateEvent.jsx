@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import logo from "../../assets/logo.png";
-import { FaSearch, FaBell, FaUser, FaQuestionCircle } from "react-icons/fa";
-import { IoMdMenu, IoMdClose } from "react-icons/io";
-import { IoLocationOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import logo from '../../assets/logo.png';
+import { FaSearch, FaBell, FaUser, FaQuestionCircle } from 'react-icons/fa';
+import { IoMdMenu, IoMdClose } from 'react-icons/io';
+import { IoLocationOutline } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
 function CreateEvent() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -11,20 +11,20 @@ function CreateEvent() {
     setIsMenuOpen(!isMenuOpen);
   };
   const [formData, setFormData] = useState({
-    eventName: "",
-    eventCategory: "",
-    numberOfInvite: "",
-    organizerName: "",
-    organizerEmail: "",
-    address: "",
-    venueName: "",
-    startDate: "",
-    startTime: "",
-    endDate: "",
-    endTime: "",
-    confirmationDeadline: "",
-    deadlineTime: "",
-    timeZone: "",
+    eventName: '',
+    eventCategory: '',
+    numberOfInvite: '',
+    organizerName: '',
+    organizerEmail: '',
+    address: '',
+    venueName: '',
+    startDate: '',
+    startTime: '',
+    endDate: '',
+    endTime: '',
+    confirmationDeadline: '',
+    deadlineTime: '',
+    timeZone: '',
   });
 
   const handleChange = (e) => {
@@ -74,7 +74,7 @@ function CreateEvent() {
           </div>
         </div>
 
-        <div className=" mx-auto  mt-10" style={{ maxWidth: "80rem" }}>
+        <div className=" mx-auto  mt-10" style={{ maxWidth: '80rem' }}>
           <div className="bg-white shadow-md rounded  pt-6 pb-8 mb-4  w-full">
             <div className="ml-10">
               <div className="text-3xl font-medium mt-4 ml-6">
@@ -136,50 +136,13 @@ function CreateEvent() {
                       />
                     </div>
                   </div>
-
-                  <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div>
-                      <label
-                        htmlFor="organizerName"
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                      >
-                        Organizer's Name
-                      </label>
-                      <input
-                        type="text"
-                        id="organizerName"
-                        name="organizerName"
-                        value={formData.organizerName}
-                        onChange={handleChange}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Enter organizer's name"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="organizerEmail"
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                      >
-                        Organizer's Email
-                      </label>
-                      <input
-                        type="email"
-                        id="organizerEmail"
-                        name="organizerEmail"
-                        value={formData.organizerEmail}
-                        onChange={handleChange}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Enter organizer's email"
-                      />
-                    </div>
-                  </div>
                 </form>
               </div>
             </div>
           </div>
         </div>
 
-        <div className=" mx-auto  mt-10" style={{ maxWidth: "80rem" }}>
+        <div className=" mx-auto  mt-10" style={{ maxWidth: '80rem' }}>
           <div className="bg-white shadow-md rounded  pt-6 pb-10 mb-4  w-full">
             <div className="ml-10">
               <div className="text-3xl font-medium mt-6">
@@ -202,7 +165,7 @@ function CreateEvent() {
           </div>
         </div>
 
-        <div className=" mx-auto  mt-10" style={{ maxWidth: "80rem" }}>
+        <div className=" mx-auto  mt-10" style={{ maxWidth: '80rem' }}>
           <div className="bg-white shadow-md rounded  pt-6 pb-8 mb-4  w-full">
             <div className="ml-10">
               <div className="text-3xl font-medium mt-6 ml-6">
@@ -381,7 +344,7 @@ function CreateEvent() {
             </form>
           </div>
         </div>
-        <div className="flex mt-24" style={{ marginLeft: "1150px" }}>
+        <div className="flex mt-24" style={{ marginLeft: '1150px' }}>
           <div className="grid grid-cols-2 gap-4  justify-left items-left">
             <div className="col-span-1 p-4">
               <button className=" hover:bg-purple-800 hover:text-white text-gray-600 font-normal py-2 px-6 border-inherit border ">
@@ -400,7 +363,7 @@ function CreateEvent() {
       </div>
       {/* mobile view */}
 
-      <div className="md:hidden bg-blue-50 p-4">
+      {/* <div className="md:hidden bg-blue-50 p-4">
         <nav className="relative flex items-center justify-between bg-white  border p-4">
           <img src={logo} alt="Logo" width={100} />
           <div className="relative  mr-10  border-2 border-gray-200">
@@ -725,7 +688,7 @@ function CreateEvent() {
             Learn More
           </button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

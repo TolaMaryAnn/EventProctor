@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import logo from "../../assets/logo.png";
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import logo from '../../assets/logo.png';
+import { Link } from 'react-router-dom';
 
 import {
   FaSearch,
@@ -8,8 +8,8 @@ import {
   FaUser,
   FaQuestionCircle,
   FaPlus,
-} from "react-icons/fa";
-import { IoMdMenu, IoMdClose } from "react-icons/io";
+} from 'react-icons/fa';
+import { IoMdMenu, IoMdClose } from 'react-icons/io';
 function SignUp() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -49,7 +49,7 @@ function SignUp() {
           </div>
         </nav>
         <div className="flex justify-center mt-12">
-          <div className="grid grid-cols-2 " style={{ gap: "1000px" }}>
+          <div className="grid grid-cols-2 " style={{ gap: '1000px' }}>
             <div className="col-span-1 p-4">
               <h2 className="text-4xl font-medium">My Events</h2>
             </div>
@@ -69,14 +69,14 @@ function SignUp() {
             </div>
           </div>
         </div>
-        <div className=" mx-auto  mt-10" style={{ maxWidth: "91rem" }}>
+        <div className=" mx-auto  mt-10" style={{ maxWidth: '91rem' }}>
           <div className="bg-white shadow-md rounded  pt-6 pb-8 mb-4  w-full">
             <div className="ml-10">
               <div className="text-5xl font-medium mt-6">
                 Launch an Event easily
               </div>
               <div className="mt-6 text-normal text-left tracking-wide text-gray-600">
-                Engage in in-person and virtual event attendees with a rich{" "}
+                Engage in in-person and virtual event attendees with a rich{' '}
                 <br />
                 interactive interface designed to delight. Engage in in-person
                 and <br />

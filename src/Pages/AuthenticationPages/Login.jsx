@@ -1,14 +1,48 @@
-import { useState } from "react";
-import { FaEye } from "react-icons/fa";
-import { RiEyeCloseFill } from "react-icons/ri";
-import { FcGoogle } from "react-icons/fc";
+import { useState } from 'react';
+import { FaEye } from 'react-icons/fa';
+import { RiEyeCloseFill } from 'react-icons/ri';
+import { Bars } from 'react-loader-spinner';
 
 function Login() {
-  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    console.log({ formData });
+    // mutation.mutate(formData);
+    fetch('https://eventproctor.onrender.com/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log({ result });
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log({ error });
+        setLoading(false);
+      });
   };
   return (
     <div>
@@ -25,7 +59,7 @@ function Login() {
                   Welcome back!! Please enter your details.
                 </div>
               </div>
-              <form className=" ">
+              <form className=" " onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
@@ -37,6 +71,9 @@ function Login() {
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="email"
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     placeholder="Enter your email"
                   />
                 </div>
@@ -49,12 +86,12 @@ function Login() {
                     Password
                   </label>
                   <input
-                    type={showPassword ? "text" : "password"}
-                    value={password}
+                    type={showPassword ? 'text' : 'password'}
+                    value={formData.password}
                     name="password"
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10"
                     id="password"
-                    onChange={(event) => setPassword(event.target.value)}
+                    onChange={handleChange}
                     placeholder="*********"
                     required
                   />
@@ -75,41 +112,40 @@ function Login() {
                     Forgot password?
                   </label>
                 </div>
-                <div className="flex items-center justify-between ">
-                  <button
-                    className="bg-purple-800 hover:bg-purple-500 text-white font-bold py-2 px-48 rounded focus:outline-none focus:shadow-outline items-center"
-                    type="button"
-                  >
-                    Sign in
-                  </button>
+                <div className="flex items-center justify-center">
+                  {loading ? (
+                    <Bars
+                      height="40"
+                      width="40"
+                      color="#6B21A8FF"
+                      ariaLabel="bars-loading"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                      visible={true}
+                    />
+                  ) : (
+                    <button
+                      className="bg-purple-800 hover:bg-purple-500 text-white font-bold py-2 px-48 rounded focus:outline-none focus:shadow-outline items-center"
+                      type="submit"
+                    >
+                      Sign in
+                    </button>
+                  )}
                 </div>
                 <div className="flex items-center justify-center mt-4">
                   <div className="border-t border-gray-400 w-16 mx-4"></div>
                   <div className="text-gray-400 mx-2">or</div>
                   <div className="border-t border-gray-400 w-16 mx-4"></div>
                 </div>
-                <div className="mt-4">
-                  <div className="relative">
-                    <input
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      id="address"
-                      type="text"
-                      placeholder="Sign up with Google"
-                    />
-                    <span className="absolute inset-y-0 left-96 pl-3 flex items-center">
-                      <FcGoogle className="h-5 w-5 text-gray-400" />
-                    </span>
-                  </div>
-                </div>
 
                 <div className="mt-4 ml-24">
                   <label className="flex items-center">
                     <span className="ml-2 text-sm">
-                      Don't have an account?
-                      <span className="text-purple-800 font-bold">
-                        {" "}
+                      Don&apos;t have an account?
+                      <a href="/signup" className="text-purple-800 font-bold">
+                        {' '}
                         sign up
-                      </span>
+                      </a>
                     </span>
                   </label>
                 </div>
@@ -119,7 +155,7 @@ function Login() {
         </div>
       </div>
       {/* mobile screen */}
-      <div className="md:hidden">
+      {/* <div className="md:hidden">
         <div className="max-w-md mx-auto w-full px-4">
           <div className="bg-white shadow-md rounded px-6 py-8 mb-4">
             <div className="text-3xl font-bold mb-4 text-center">
@@ -152,7 +188,7 @@ function Login() {
                   Password
                 </label>
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   value={password}
                   name="password"
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10"
@@ -208,11 +244,11 @@ function Login() {
             </form>
           </div>
           <div className="text-sm text-center text-gray-700 mb-6">
-            Don't an account?{" "}
+            Don&apos;t an account?{' '}
             <span className="text-purple-800 font-bold">Sign up</span>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
