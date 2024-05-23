@@ -26,22 +26,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <div className="flex items-center text-lg">
-          {/* <Link to={'/'} className="mr-24 font-bold">
-            All Events
-          </Link> */}
-          {/* <div className="font-normal">Resources</div> */}
-          {/* <div className="relative  border-2 border-gray-200 ml-24">
-            <span className="absolute inset-y-0 left-0 pl-3 flex items-center">
-              <FaSearch className="text-black" />
-            </span>
-            <input
-              className="block pl-10 pr-3 py-2 w-80 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-lg border-gray-300"
-              type="text"
-              placeholder="Search for events"
-            />
-          </div> */}
-        </div>
+        <div className="flex items-center text-lg"></div>
 
         <div className="flex items-center">
           <FaQuestionCircle size={25} className="text-[#110F3E] mr-8" />
