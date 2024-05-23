@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import logo from "../../assets/logo.png";
+import React, { useState } from 'react';
+import logo from '../../assets/logo.png';
 // MdEventSeat
 // IoMdHome
 // MdLocationPin
 // IoHelpCircle
-import { FaSearch, FaBell, FaUser, FaQuestionCircle } from "react-icons/fa";
-import { SlCalender } from "react-icons/sl";
-import { IoMdMenu, IoMdClose } from "react-icons/io";
+import { FaSearch, FaBell, FaUser, FaQuestionCircle } from 'react-icons/fa';
+import { SlCalender } from 'react-icons/sl';
+import { IoMdMenu, IoMdClose } from 'react-icons/io';
+import { Link } from 'react-router-dom';
 const Card = ({ title, count, description }) => {
   return (
     <div className="bg-white  shadow-md rounded-lg p-4 m-2">
@@ -72,7 +73,7 @@ function Home() {
             </div>
             <div
               className=" text-gray-600 font-bold text-lg px-10"
-              style={{ marginTop: "620px" }}
+              style={{ marginTop: '620px' }}
             >
               Help
             </div>
@@ -151,7 +152,7 @@ function Home() {
                   <a
                     href="/get-started"
                     className="text-purple-800 hover:underline  font-bold "
-                    style={{ marginLeft: "430px" }}
+                    style={{ marginLeft: '430px' }}
                   >
                     Get started
                   </a>
@@ -161,9 +162,11 @@ function Home() {
           </div>
 
           <div className="flex flex-col w-1/6 mb-32">
-            <button className="text-black border py-2 bg-purple-800 text-white mt-10 ">
-              Actions
-            </button>
+            <Link to={'/createvent'}>
+              <button className="p-2 rounded-md border py-2 bg-purple-800 text-white mt-10 ">
+                Create Event
+              </button>
+            </Link>
             <div className="border p-6 rounded bg-blue-50 mt-20">
               <div className="text-black font-medium text-2xl ">
                 Event Details

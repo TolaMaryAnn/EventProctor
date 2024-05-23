@@ -1,31 +1,22 @@
 import { useState } from 'react';
-import logo from '../../assets/logo.png';
-import { FaSearch, FaBell, FaUser, FaQuestionCircle } from 'react-icons/fa';
-import { IoMdMenu, IoMdClose } from 'react-icons/io';
-import { IoLocationOutline } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
+import { Bars } from 'react-loader-spinner';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../../HomePage/Components/Navbar';
+// import { IoMdMenu, IoMdClose } from 'react-icons/io';
+// import { IoLocationOutline } from 'react-icons/io5';
+// import { Link } from 'react-router-dom';
 function CreateEvent() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const token = useSelector((state) => state.auth.token);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     eventName: '',
-    eventCategory: '',
-    numberOfInvite: '',
-    organizerName: '',
-    organizerEmail: '',
-    address: '',
-    venueName: '',
-    startDate: '',
-    startTime: '',
-    endDate: '',
-    endTime: '',
-    confirmationDeadline: '',
-    deadlineTime: '',
-    timeZone: '',
+    time: '',
+    venue: '',
+    description: '',
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,38 +25,41 @@ function CreateEvent() {
       [name]: value,
     });
   };
+
+  // submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    console.log({ formData });
+    fetch('https://eventproctor.onrender.com/events', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.status === 'success') {
+          toast(result.message);
+          navigate('/');
+        } else {
+          toast(result.message);
+        }
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log({ error });
+        setLoading(false);
+      });
+  };
+
   return (
     <div>
       {/* desktop view */}
       <div className="bg-blue-50 pb-10 hidden md:block">
-        <nav className="flex flex-col bg-[#110F3E] hidden md:block bg-white border-b-gray-200 border">
-          <div className="flex items-center justify-between flex-wrap bg-white px-6 py-2">
-            <div className="flex items-center flex-shrink-0 text-white mr-6">
-              <img src={logo} alt="Logo" width={180} />
-            </div>
-
-            <div className="flex items-center text-lg">
-              <div className="mr-24 font-bold">All Events</div>
-              <div className="font-normal">Resources</div>
-              <div className="relative  border-2 border-gray-200 ml-24">
-                <span className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                  <FaSearch className="text-black" />
-                </span>
-                <input
-                  className="block pl-10 pr-3 py-2 w-80 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-lg border-gray-300"
-                  type="text"
-                  placeholder="Search for events"
-                />
-              </div>
-            </div>
-
-            <div className="flex items-center">
-              <FaQuestionCircle size={25} className="text-[#110F3E] mr-8" />
-              <FaBell size={25} className="text-[#110F3E] mr-20" />
-              <FaUser size={25} className="text-[#110F3E] mr-2" />
-            </div>
-          </div>
-        </nav>
+        <Navbar />
 
         <div className="px-52 mt-16">
           <div className="text-4xl font-medium">New Event</div>
@@ -81,7 +75,7 @@ function CreateEvent() {
                 Basic Information
               </div>
               <div className="mt-6">
-                <form className=" p-8 ">
+                <form className=" p-8 " onSubmit={handleSubmit}>
                   <div className="mb-4">
                     <label
                       htmlFor="eventName"
@@ -106,16 +100,16 @@ function CreateEvent() {
                         htmlFor="eventCategory"
                         className="block text-gray-700 text-sm font-bold mb-2"
                       >
-                        Event Category
+                        Event Time
                       </label>
                       <input
-                        type="text"
-                        id="eventCategory"
-                        name="eventCategory"
-                        value={formData.eventCategory}
+                        type="time"
+                        id="time"
+                        name="time"
+                        value={formData.time}
                         onChange={handleChange}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Enter event category"
+                        // placeholder="Enter event category"
                       />
                     </div>
                     <div>
@@ -123,18 +117,56 @@ function CreateEvent() {
                         htmlFor="numberOfInvite"
                         className="block text-gray-700 text-sm font-bold mb-2"
                       >
-                        Number of Invite
+                        Venue
                       </label>
                       <input
-                        type="number"
-                        id="numberOfInvite"
-                        name="numberOfInvite"
-                        value={formData.numberOfInvite}
+                        type="text"
+                        id="venue"
+                        name="venue"
+                        value={formData.venue}
                         onChange={handleChange}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Enter number of invitees"
+                        placeholder="Address of Venue"
                       />
                     </div>
+                  </div>
+
+                  <div className="mb-4">
+                    <label
+                      htmlFor="eventName"
+                      className="block text-gray-700 text-sm font-bold mb-2"
+                    >
+                      Description
+                    </label>
+                    <textarea
+                      type="text"
+                      id="description"
+                      name="description"
+                      value={formData.description}
+                      onChange={handleChange}
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      placeholder="Enter event description..."
+                    />
+                  </div>
+                  <div className=" w-full flex justify-center items-center">
+                    {loading ? (
+                      <Bars
+                        height="40"
+                        width="40"
+                        color="#6B21A8FF"
+                        ariaLabel="bars-loading"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                      />
+                    ) : (
+                      <button
+                        type="submit"
+                        className="mx-auto bg-purple-800 text-white p-3 rounded-md hover:bg-purple-600 ease-in-out transition-all"
+                      >
+                        Create Event
+                      </button>
+                    )}
                   </div>
                 </form>
               </div>
@@ -142,7 +174,7 @@ function CreateEvent() {
           </div>
         </div>
 
-        <div className=" mx-auto  mt-10" style={{ maxWidth: '80rem' }}>
+        {/* <div className=" mx-auto  mt-10" style={{ maxWidth: '80rem' }}>
           <div className="bg-white shadow-md rounded  pt-6 pb-10 mb-4  w-full">
             <div className="ml-10">
               <div className="text-3xl font-medium mt-6">
@@ -163,9 +195,9 @@ function CreateEvent() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className=" mx-auto  mt-10" style={{ maxWidth: '80rem' }}>
+        {/* <div className=" mx-auto  mt-10" style={{ maxWidth: '80rem' }}>
           <div className="bg-white shadow-md rounded  pt-6 pb-8 mb-4  w-full">
             <div className="ml-10">
               <div className="text-3xl font-medium mt-6 ml-6">
@@ -359,7 +391,7 @@ function CreateEvent() {
               </Link>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       {/* mobile view */}
 

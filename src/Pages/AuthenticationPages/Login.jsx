@@ -2,6 +2,10 @@ import { useState } from 'react';
 import { FaEye } from 'react-icons/fa';
 import { RiEyeCloseFill } from 'react-icons/ri';
 import { Bars } from 'react-loader-spinner';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { login } from '../../features/auth/authSlice';
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -10,6 +14,8 @@ function Login() {
     email: '',
     password: '',
   });
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -37,6 +43,21 @@ function Login() {
       .then((res) => res.json())
       .then((result) => {
         console.log({ result });
+        if (result.status === 'success') {
+          toast(result.message || 'Success');
+          dispatch(login(result.data));
+          localStorage.setItem(
+            'user',
+            JSON.stringify({
+              isAuthenticated: true,
+              data: result.data,
+              token: result.data.accessToken,
+            })
+          );
+          navigate('/');
+        } else {
+          toast(result.message);
+        }
         setLoading(false);
       })
       .catch((error) => {

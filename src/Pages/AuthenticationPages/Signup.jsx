@@ -3,6 +3,8 @@ import { FaEye } from 'react-icons/fa';
 import { RiEyeCloseFill } from 'react-icons/ri';
 // import { useMutation } from '@tanstack/react-query';
 import { Bars } from 'react-loader-spinner';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -13,6 +15,7 @@ function Signup() {
     password: '',
   });
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -72,6 +75,12 @@ function Signup() {
       .then((res) => res.json())
       .then((result) => {
         console.log({ result });
+        if (result.status === 'success') {
+          toast(result.message || 'Signup Success');
+          navigate('/login');
+        } else {
+          toast(result.message);
+        }
         setLoading(false);
       })
       .catch((error) => {
