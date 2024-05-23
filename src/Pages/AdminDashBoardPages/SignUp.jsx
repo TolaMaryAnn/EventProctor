@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
+
 import {
   FaSearch,
   FaBell,
@@ -16,7 +17,7 @@ function SignUp() {
     setIsMenuOpen(!isMenuOpen);
   };
   return (
-    <div>
+    <div className="">
       {/* desktop view */}
       <div className="bg-blue-50 h-screen hidden md:block">
         <nav className="flex flex-col bg-[#110F3E] hidden md:block bg-white border-b-gray-200 border">
