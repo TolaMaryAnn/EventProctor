@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import logo from "../../assets/logo.png";
-import {IoHelpCircle } from 'react-icons/io';
-import { MdEventSeat, MdLocationPin } from 'react-icons/md';
+// MdEventSeat
+// IoMdHome
+// MdLocationPin
+// IoHelpCircle
 import { FaSearch, FaBell, FaUser, FaQuestionCircle } from "react-icons/fa";
 import { SlCalender } from "react-icons/sl";
-import { IoMdMenu, IoMdClose, IoMdHome } from "react-icons/io";
+import { IoMdMenu, IoMdClose } from "react-icons/io";
 const Card = ({ title, count, description }) => {
   return (
     <div className="bg-white  shadow-md rounded-lg p-4 m-2">
@@ -58,7 +60,7 @@ function Home() {
         </nav>
 
         <div className="flex justify-between bg-white px-6 py-2 ">
-          {/* <div className="flex flex-col text-white mr-6 w-1/7 ">
+          <div className="flex flex-col text-white mr-6 w-1/7 ">
             <div className="text-purple-800 font-bold text-lg mt-10 px-10">
               Eventide
             </div>
@@ -74,28 +76,7 @@ function Home() {
             >
               Help
             </div>
-          </div> */}
-            <div className="flex flex-col text-white mr-6 w-1/7">
-      <div className="text-purple-800 font-bold text-lg mt-10 px-10 flex items-center">
-        <MdEventSeat className="mr-2" />
-        Eventide
-      </div>
-      <div className="text-black mt-16 border px-10 py-2 rounded-lg bg-purple-800 text-white flex items-center">
-        <IoMdHome className="mr-2" />
-        Home
-      </div>
-      <div className="text-gray-600 font-bold text-lg mt-16 px-10 flex items-center">
-        <MdLocationPin className="mr-2" />
-        Attendees
-      </div>
-      <div
-        className="text-gray-600 font-bold text-lg px-10 flex items-center"
-        style={{ marginTop: "620px" }}
-      >
-        <IoHelpCircle className="mr-2" />
-        Help
-      </div>
-    </div>
+          </div>
           <div className="flex flex-col  w-1/7 text-white mr-6"></div>
 
           <div className="flex flex-col text-lg flex-grow mx-6">
