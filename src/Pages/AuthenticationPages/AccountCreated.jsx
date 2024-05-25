@@ -1,5 +1,4 @@
-import { useState } from "react";
-import Ac from "../../assets/AC.png";
+import Ac from '../../assets/AC.png';
 
 function AccountCreated() {
   return (
@@ -39,8 +38,8 @@ function AccountCreated() {
                 <div className="mt-6 mb-4">
                   <label className="flex items-center">
                     <div>
-                      {" "}
-                      Click on the link sent to your email address{" "}
+                      {' '}
+                      Click on the link sent to your email address{' '}
                       <span className=" text-purple-800 font-bold">
                         Anniemay@gmail.com
                       </span>
@@ -61,7 +60,7 @@ function AccountCreated() {
                     <span className="ml-2 text-sm">
                       Need help?
                       <span className="text-purple-800 font-bold">
-                        {" "}
+                        {' '}
                         Contact support
                       </span>
                     </span>
@@ -107,8 +106,8 @@ function AccountCreated() {
               <div className="mb-4">
                 <label className="flex items-center ">
                   <div className="text-center ">
-                    {" "}
-                    Click on the link sent to your email address{" "}
+                    {' '}
+                    Click on the link sent to your email address{' '}
                     <span className=" text-purple-800 font-bold">
                       Anniemay@gmail.com
                     </span>

@@ -1,10 +1,8 @@
-import { useState } from "react";
-
 function Verification() {
   return (
     <div>
       {/* desktop screen */}
-      <div className="flex items-center justify-center bg-blue-50 h-screen hidden md:flex">
+      <div className=" items-center justify-center bg-blue-50 h-screen hidden md:flex">
         <div className="">
           <div className="max-w-3xl mx-auto ">
             <div className="bg-white shadow-md rounded  px-24 pt-6 pb-72 mb-4  w-full">
