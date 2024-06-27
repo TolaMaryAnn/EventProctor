@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import { FaEye } from 'react-icons/fa';
-import { RiEyeCloseFill } from 'react-icons/ri';
-import { Bars } from 'react-loader-spinner';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { login } from '../../features/auth/authSlice';
+import { useState } from "react";
+import { FaEye } from "react-icons/fa";
+import { RiEyeCloseFill } from "react-icons/ri";
+import { Bars } from "react-loader-spinner";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { login } from "../../features/auth/authSlice";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,33 +28,38 @@ function Login() {
     });
   };
 
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log({ formData });
-    // mutation.mutate(formData);
-    fetch('https://eventproctor.onrender.com/users/login', {
-      method: 'POST',
+    const trimmedFormData = {
+      ...formData,
+      email: formData.email.trim(),
+    };
+    console.log({ trimmedFormData });
+    fetch("https://eventproctor.onrender.com/users/login", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(trimmedFormData),
     })
       .then((res) => res.json())
       .then((result) => {
         console.log({ result });
-        if (result.status === 'success') {
-          toast(result.message || 'Success');
+        if (result.status === "success") {
+          toast(result.message || "Success");
           dispatch(login(result.data));
           localStorage.setItem(
-            'user',
+            "user",
             JSON.stringify({
               isAuthenticated: true,
               data: result.data,
               token: result.data.accessToken,
             })
           );
-          navigate('/');
+          navigate("/");
         } else {
           toast(result.message);
         }
@@ -65,6 +70,7 @@ function Login() {
         setLoading(false);
       });
   };
+
   return (
     <div>
       {/* desktop screen */}
@@ -88,6 +94,7 @@ function Login() {
                   >
                     Email
                   </label>
+                
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="email"
@@ -96,6 +103,7 @@ function Login() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Enter your email"
+                    required
                   />
                 </div>
 
@@ -107,7 +115,7 @@ function Login() {
                     Password
                   </label>
                   <input
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword ? "text" : "password"}
                     value={formData.password}
                     name="password"
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10"
@@ -164,7 +172,7 @@ function Login() {
                     <span className="ml-2 text-sm">
                       Don&apos;t have an account?
                       <a href="/signup" className="text-purple-800 font-bold">
-                        {' '}
+                        {" "}
                         sign up
                       </a>
                     </span>
@@ -176,7 +184,7 @@ function Login() {
         </div>
       </div>
       {/* mobile screen */}
-      {/* <div className="md:hidden">
+      <div className="md:hidden">
         <div className="max-w-md mx-auto w-full px-4">
           <div className="bg-white shadow-md rounded px-6 py-8 mb-4">
             <div className="text-3xl font-bold mb-4 text-center">
@@ -185,7 +193,7 @@ function Login() {
             <div className="text-sm font-thin mb-6 text-center">
               Welcome back!! Please enter your details.
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
@@ -197,7 +205,11 @@ function Login() {
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="email"
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Enter your email"
+                  required
                 />
               </div>
 
@@ -209,12 +221,12 @@ function Login() {
                   Password
                 </label>
                 <input
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  name="password"
+                   type={showPassword ? "text" : "password"}
+                   value={formData.password}
+                   name="password"
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10"
                   id="password"
-                  onChange={(event) => setPassword(event.target.value)}
+                  onChange={handleChange}
                   placeholder="*********"
                   required
                 />
@@ -238,38 +250,41 @@ function Login() {
                 </label>
               </div>
 
+             
               <div className="mt-4">
-                <button
-                  type="submit"
-                  className="bg-purple-800 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
-                >
-                  Sign in
-                </button>
-              </div>
+                  {loading ? (
+                    <Bars
+                      height="20"
+                      width="20"
+                      color="#6B21A8FF"
+                      ariaLabel="bars-loading"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                      visible={true}
+                    />
+                  ) : (
+                    <button
+                      className="bg-purple-800 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+                      type="submit"
+                    >
+                      Sign in
+                    </button>
+                  )}
+                </div>
               <div className="flex items-center justify-center mt-4">
                 <div className="border-t border-gray-400 w-16 mx-4"></div>
                 <div className="text-gray-400 mx-2">or</div>
                 <div className="border-t border-gray-400 w-16 mx-4"></div>
               </div>
-              <div className="mt-4 relative">
-                <input
-                  id="address"
-                  type="text"
-                  placeholder="Sign up with Google"
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-                <span className="absolute inset-y-0 left-60 pl-3 flex items-center">
-                  <FcGoogle className="h-5 w-5 text-gray-400" />
-                </span>
-              </div>
+              
             </form>
           </div>
           <div className="text-sm text-center text-gray-700 mb-6">
             Don&apos;t an account?{' '}
-            <span className="text-purple-800 font-bold">Sign up</span>
+            <a className="text-purple-800 font-bold" href="/signup">Sign up</a>
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }
